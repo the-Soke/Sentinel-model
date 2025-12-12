@@ -1,0 +1,301 @@
+Date,State,Location,TimeOfDay,RoadType,AttackType,Casualties,Kidnapped,WeaponsUsed,PastIncidentsInArea,RiskLevel
+2024-07-22,Benue,Road 30,08:00,Highway,Village Raid,2,15,None,7,High
+2024-02-27,Oyo,Village 37,22:00,Highway,Kidnapping,5,9,Explosives,10,High
+2024-05-06,Plateau,Village 41,01:00,Forest Path,Bandit Attack,5,12,Explosives,3,High
+2024-06-22,Oyo,Village 25,01:00,Urban Road,Bandit Attack,4,8,Pistols,2,High
+2024-06-28,Edo,Village 3,04:00,Highway,Highway Robbery,1,7,AK-47,5,High
+2024-02-21,Benue,Road 22,04:00,Rural Road,Highway Robbery,5,9,AK-47,1,High
+2024-10-12,Abuja,Village 15,03:00,Urban Road,Bandit Attack,1,4,Pistols,8,High
+2024-11-03,Sokoto,Road 49,13:00,Urban Road,Highway Robbery,3,3,None,7,High
+2024-07-20,Niger,Town 7,11:00,Rural Road,Kidnapping,0,10,Explosives,9,High
+2024-09-11,Benue,Road 3,01:00,Highway,Bandit Attack,1,13,Pistols,3,High
+2024-03-18,Abuja,Checkpoint 25,14:00,Urban Road,Highway Robbery,2,4,Explosives,2,Medium
+2024-08-19,Kaduna,Road 27,06:00,Urban Road,Highway Robbery,2,4,Explosives,1,Medium
+2024-11-18,Kaduna,Road 2,09:00,Rural Road,Highway Robbery,5,14,AK-47,9,High
+2024-11-28,Kogi,Village 1,14:00,Rural Road,Kidnapping,5,13,None,5,High
+2024-12-05,Zamfara,Town 10,03:00,Rural Road,Highway Robbery,0,15,AK-47,8,High
+2024-08-21,Borno,Checkpoint 16,22:00,Urban Road,Bandit Attack,4,1,Shotgun,3,Medium
+2024-08-06,Ondo,Road 22,01:00,Highway,Bandit Attack,5,10,None,0,High
+2024-06-23,Kaduna,Road 45,08:00,Urban Road,Village Raid,5,3,AK-47,10,High
+2024-10-03,Delta,Checkpoint 38,16:00,Urban Road,Highway Robbery,4,2,Pistols,3,Medium
+2024-04-16,Kogi,Town 5,23:00,Highway,Village Raid,2,5,Shotgun,3,Medium
+2024-07-06,Abuja,Checkpoint 25,08:00,Highway,Village Raid,3,13,Pistols,3,High
+2024-10-16,Taraba,Village 22,04:00,Highway,Highway Robbery,3,5,None,6,High
+2024-07-23,Taraba,Checkpoint 1,07:00,Highway,Bandit Attack,2,4,AK-47,7,High
+2024-12-01,Oyo,Road 8,19:00,Highway,Bandit Attack,3,12,AK-47,10,High
+2024-01-23,Katsina,Village 23,04:00,Urban Road,Kidnapping,5,4,Explosives,7,High
+2024-09-05,Ondo,Checkpoint 41,05:00,Rural Road,Bandit Attack,0,4,Pistols,4,Medium
+2024-06-11,Oyo,Checkpoint 36,21:00,Urban Road,Bandit Attack,2,5,Explosives,2,Medium
+2024-10-15,Kogi,Village 47,14:00,Highway,Village Raid,0,9,Shotgun,4,High
+2024-10-12,Katsina,Road 40,23:00,Urban Road,Highway Robbery,1,0,None,2,Low
+2024-12-27,Borno,Village 1,20:00,Rural Road,Highway Robbery,5,9,AK-47,1,High
+2024-03-18,Niger,Village 11,13:00,Highway,Highway Robbery,4,15,None,5,High
+2024-11-24,Kogi,Checkpoint 5,15:00,Urban Road,Bandit Attack,5,6,Shotgun,4,High
+2024-07-07,Taraba,Checkpoint 8,04:00,Rural Road,Highway Robbery,1,4,Explosives,9,High
+2024-01-22,Edo,Checkpoint 5,08:00,Rural Road,Bandit Attack,2,1,Explosives,1,Low
+2024-08-20,Plateau,Village 21,09:00,Forest Path,Highway Robbery,2,6,Explosives,4,Medium
+2024-01-12,Sokoto,Road 31,03:00,Urban Road,Highway Robbery,0,3,Shotgun,0,Low
+2024-02-09,Taraba,Road 10,01:00,Forest Path,Highway Robbery,1,13,None,6,High
+2024-12-21,Kogi,Town 41,09:00,Highway,Village Raid,5,10,None,4,High
+2024-02-05,Abuja,Road 29,12:00,Forest Path,Bandit Attack,5,8,None,5,High
+2024-11-05,Kaduna,Village 41,18:00,Urban Road,Kidnapping,0,8,Pistols,6,High
+2024-03-08,Kogi,Village 6,06:00,Rural Road,Village Raid,3,9,AK-47,0,Medium
+2024-03-19,Sokoto,Checkpoint 16,19:00,Highway,Kidnapping,2,0,None,7,Medium
+2024-06-01,Kaduna,Village 49,06:00,Highway,Bandit Attack,0,8,AK-47,10,High
+2024-02-04,Taraba,Checkpoint 13,20:00,Rural Road,Bandit Attack,2,6,Explosives,0,Medium
+2024-07-04,Oyo,Town 12,09:00,Urban Road,Highway Robbery,1,12,Explosives,9,High
+2024-03-21,Ondo,Road 1,08:00,Highway,Bandit Attack,0,7,AK-47,4,Medium
+2024-09-23,Sokoto,Village 35,20:00,Urban Road,Kidnapping,1,14,AK-47,2,High
+2024-06-04,Kwara,Checkpoint 5,05:00,Rural Road,Village Raid,4,2,Explosives,8,High
+2024-08-09,Niger,Road 33,05:00,Urban Road,Highway Robbery,0,13,AK-47,1,High
+2024-03-07,Oyo,Town 8,08:00,Rural Road,Village Raid,5,13,Pistols,7,High
+2024-09-13,Niger,Road 4,11:00,Forest Path,Highway Robbery,5,5,None,7,High
+2024-10-02,Zamfara,Village 31,23:00,Forest Path,Bandit Attack,1,2,Shotgun,8,Medium
+2024-05-01,Niger,Village 15,10:00,Rural Road,Bandit Attack,4,14,None,8,High
+2024-01-28,Oyo,Town 4,23:00,Forest Path,Village Raid,4,11,AK-47,2,High
+2024-06-25,Delta,Road 32,22:00,Forest Path,Highway Robbery,1,3,Explosives,6,Medium
+2024-05-20,Taraba,Village 11,00:00,Urban Road,Bandit Attack,5,0,None,9,High
+2024-04-27,Benue,Village 42,23:00,Rural Road,Highway Robbery,0,8,Shotgun,0,Medium
+2024-01-24,Kwara,Town 34,04:00,Forest Path,Kidnapping,2,6,None,9,High
+2024-11-17,Borno,Town 38,23:00,Highway,Kidnapping,3,1,AK-47,6,Medium
+2024-07-05,Ondo,Village 8,01:00,Rural Road,Kidnapping,2,8,Shotgun,6,High
+2024-12-14,Kwara,Road 27,22:00,Highway,Kidnapping,3,4,AK-47,7,High
+2024-12-12,Taraba,Road 23,23:00,Highway,Village Raid,3,11,Explosives,5,High
+2024-02-27,Benue,Road 42,15:00,Rural Road,Bandit Attack,0,9,Pistols,10,High
+2024-03-27,Katsina,Checkpoint 11,12:00,Highway,Kidnapping,1,8,AK-47,5,High
+2024-11-11,Borno,Road 41,01:00,Forest Path,Kidnapping,5,13,Explosives,6,High
+2024-04-28,Taraba,Checkpoint 24,10:00,Highway,Highway Robbery,5,5,Shotgun,10,High
+2024-07-10,Kaduna,Village 45,08:00,Urban Road,Kidnapping,3,7,AK-47,5,High
+2024-08-11,Kaduna,Village 43,08:00,Urban Road,Highway Robbery,5,4,AK-47,10,High
+2024-05-16,Kwara,Town 8,16:00,Rural Road,Kidnapping,1,14,AK-47,9,High
+2024-01-25,Kaduna,Town 42,12:00,Highway,Village Raid,5,1,AK-47,3,Medium
+2024-01-07,Zamfara,Village 40,01:00,Forest Path,Village Raid,0,2,Explosives,4,Medium
+2024-02-08,Katsina,Village 13,11:00,Urban Road,Bandit Attack,0,6,Shotgun,10,High
+2024-10-25,Oyo,Road 6,11:00,Highway,Kidnapping,4,6,Explosives,5,High
+2024-11-10,Edo,Village 25,10:00,Forest Path,Village Raid,4,6,Shotgun,4,High
+2024-02-05,Edo,Road 45,07:00,Urban Road,Bandit Attack,3,1,Pistols,1,Low
+2024-02-14,Katsina,Village 22,01:00,Highway,Bandit Attack,2,1,AK-47,7,Medium
+2024-08-15,Kwara,Road 27,09:00,Rural Road,Kidnapping,4,5,None,0,Medium
+2024-11-17,Sokoto,Town 21,17:00,Highway,Bandit Attack,0,9,None,5,High
+2024-02-08,Benue,Village 22,22:00,Urban Road,Bandit Attack,3,8,None,3,High
+2024-07-13,Taraba,Town 36,07:00,Urban Road,Highway Robbery,1,5,Explosives,4,Medium
+2024-01-07,Zamfara,Road 43,06:00,Urban Road,Village Raid,2,9,AK-47,3,High
+2024-12-23,Edo,Road 4,11:00,Rural Road,Bandit Attack,2,6,Explosives,3,Medium
+2024-12-03,Ondo,Village 50,15:00,Urban Road,Village Raid,0,6,Explosives,4,Medium
+2024-03-28,Katsina,Village 29,10:00,Highway,Highway Robbery,5,11,Pistols,3,High
+2024-02-07,Taraba,Checkpoint 6,21:00,Forest Path,Kidnapping,3,2,None,4,Medium
+2024-02-06,Plateau,Road 4,21:00,Urban Road,Village Raid,4,6,Pistols,9,High
+2024-04-22,Abuja,Village 23,00:00,Rural Road,Kidnapping,0,9,None,0,Medium
+2024-03-22,Kwara,Town 25,07:00,Forest Path,Bandit Attack,0,4,None,8,Medium
+2024-08-26,Sokoto,Town 26,18:00,Urban Road,Kidnapping,0,1,AK-47,5,Medium
+2024-06-12,Borno,Village 47,08:00,Rural Road,Kidnapping,5,15,Pistols,6,High
+2024-02-12,Oyo,Road 13,17:00,Forest Path,Kidnapping,2,11,AK-47,5,High
+2024-11-04,Abuja,Road 33,09:00,Highway,Village Raid,0,6,None,7,High
+2024-12-02,Borno,Road 8,14:00,Urban Road,Bandit Attack,2,13,AK-47,3,High
+2024-01-14,Oyo,Road 39,03:00,Urban Road,Kidnapping,4,6,None,0,Medium
+2024-12-06,Katsina,Road 11,12:00,Forest Path,Highway Robbery,1,9,Shotgun,7,High
+2024-10-19,Delta,Town 15,18:00,Rural Road,Highway Robbery,1,1,AK-47,5,Medium
+2024-01-22,Niger,Road 22,16:00,Rural Road,Bandit Attack,2,15,Shotgun,6,High
+2024-02-01,Oyo,Checkpoint 36,04:00,Forest Path,Bandit Attack,0,3,AK-47,3,Medium
+2024-01-12,Benue,Village 35,07:00,Urban Road,Kidnapping,5,2,Pistols,0,Medium
+2024-02-07,Taraba,Road 47,13:00,Highway,Highway Robbery,3,7,Shotgun,1,Medium
+2024-06-08,Katsina,Village 16,22:00,Forest Path,Kidnapping,4,14,AK-47,5,High
+2024-02-11,Taraba,Town 19,14:00,Highway,Highway Robbery,0,9,Shotgun,1,Medium
+2024-09-05,Benue,Village 48,22:00,Forest Path,Bandit Attack,4,0,Shotgun,10,High
+2024-07-08,Katsina,Village 12,03:00,Urban Road,Bandit Attack,2,9,Shotgun,10,High
+2024-04-07,Abuja,Checkpoint 2,10:00,Urban Road,Highway Robbery,5,4,None,6,High
+2024-11-16,Kogi,Road 37,11:00,Urban Road,Highway Robbery,2,0,Pistols,10,Medium
+2024-06-16,Delta,Village 29,01:00,Forest Path,Kidnapping,5,11,Shotgun,9,High
+2024-04-14,Katsina,Village 39,06:00,Forest Path,Kidnapping,3,14,AK-47,8,High
+2024-09-24,Taraba,Town 25,00:00,Rural Road,Bandit Attack,5,9,AK-47,4,High
+2024-04-18,Niger,Checkpoint 35,05:00,Rural Road,Bandit Attack,2,12,Explosives,6,High
+2024-02-05,Sokoto,Road 32,09:00,Highway,Village Raid,0,9,AK-47,1,Medium
+2024-07-13,Delta,Checkpoint 40,12:00,Forest Path,Village Raid,1,10,Explosives,3,High
+2024-04-08,Ondo,Village 4,07:00,Urban Road,Highway Robbery,5,12,AK-47,7,High
+2024-11-08,Edo,Road 3,05:00,Rural Road,Kidnapping,2,9,Shotgun,5,High
+2024-02-06,Sokoto,Road 23,16:00,Rural Road,Village Raid,1,14,Shotgun,0,High
+2024-07-08,Borno,Village 41,12:00,Urban Road,Village Raid,2,8,AK-47,5,High
+2024-08-09,Kaduna,Checkpoint 4,12:00,Forest Path,Highway Robbery,1,4,Explosives,9,High
+2024-01-28,Plateau,Village 32,07:00,Forest Path,Bandit Attack,1,11,Pistols,2,High
+2024-04-14,Taraba,Checkpoint 24,17:00,Rural Road,Kidnapping,4,3,Explosives,9,High
+2024-11-04,Kwara,Village 50,10:00,Rural Road,Highway Robbery,5,12,Shotgun,2,High
+2024-06-26,Zamfara,Checkpoint 42,12:00,Urban Road,Kidnapping,0,3,Shotgun,3,Medium
+2024-05-23,Oyo,Road 5,03:00,Urban Road,Village Raid,3,15,Pistols,1,High
+2024-05-05,Katsina,Village 7,11:00,Urban Road,Bandit Attack,5,14,AK-47,10,High
+2024-02-24,Katsina,Checkpoint 43,21:00,Highway,Village Raid,1,0,AK-47,2,Low
+2024-08-06,Taraba,Town 13,06:00,Forest Path,Bandit Attack,0,1,AK-47,8,Medium
+2024-04-03,Abuja,Checkpoint 35,06:00,Rural Road,Village Raid,4,5,AK-47,4,High
+2024-08-11,Benue,Road 8,21:00,Urban Road,Kidnapping,3,4,AK-47,4,Medium
+2024-12-27,Kogi,Road 17,06:00,Highway,Village Raid,4,5,AK-47,3,Medium
+2024-03-18,Kogi,Checkpoint 38,03:00,Highway,Kidnapping,2,3,Pistols,0,Low
+2024-06-14,Taraba,Road 22,01:00,Forest Path,Bandit Attack,2,2,Pistols,8,Medium
+2024-07-10,Abuja,Town 16,00:00,Urban Road,Highway Robbery,1,10,Pistols,7,High
+2024-12-25,Niger,Town 23,21:00,Forest Path,Highway Robbery,0,3,Pistols,2,Low
+2024-08-05,Zamfara,Village 4,15:00,Highway,Highway Robbery,2,1,None,1,Low
+2024-10-17,Taraba,Village 41,00:00,Rural Road,Village Raid,1,11,Explosives,7,High
+2024-10-23,Taraba,Town 26,05:00,Rural Road,Highway Robbery,2,4,Shotgun,6,Medium
+2024-01-04,Abuja,Village 37,12:00,Highway,Highway Robbery,3,10,Shotgun,0,High
+2024-12-28,Borno,Town 18,00:00,Rural Road,Village Raid,1,5,Explosives,1,Medium
+2024-06-10,Kogi,Road 23,02:00,Rural Road,Kidnapping,3,4,Shotgun,0,Medium
+2024-02-08,Zamfara,Checkpoint 31,03:00,Urban Road,Bandit Attack,5,1,Pistols,6,Medium
+2024-02-22,Edo,Road 41,21:00,Urban Road,Village Raid,4,8,Shotgun,5,High
+2024-01-11,Benue,Road 11,16:00,Highway,Kidnapping,3,9,None,2,High
+2024-10-16,Niger,Village 30,16:00,Rural Road,Kidnapping,5,0,Shotgun,6,Medium
+2024-03-06,Abuja,Town 20,16:00,Highway,Kidnapping,2,10,AK-47,9,High
+2024-09-11,Benue,Village 18,19:00,Highway,Highway Robbery,3,10,AK-47,9,High
+2024-10-23,Kaduna,Village 9,11:00,Forest Path,Highway Robbery,4,4,Explosives,5,High
+2024-07-18,Benue,Road 11,06:00,Forest Path,Highway Robbery,2,6,Pistols,8,High
+2024-05-09,Niger,Road 20,04:00,Urban Road,Bandit Attack,1,3,None,6,Medium
+2024-05-13,Ondo,Village 49,06:00,Rural Road,Village Raid,5,14,Shotgun,8,High
+2024-07-28,Kogi,Road 20,05:00,Highway,Highway Robbery,0,13,Pistols,4,High
+2024-11-17,Borno,Checkpoint 19,11:00,Rural Road,Kidnapping,4,8,None,2,High
+2024-05-22,Ondo,Road 29,21:00,Highway,Bandit Attack,3,0,AK-47,4,Medium
+2024-06-06,Sokoto,Checkpoint 17,16:00,Rural Road,Kidnapping,5,2,Pistols,3,Medium
+2024-06-24,Ondo,Village 11,15:00,Forest Path,Bandit Attack,4,4,Explosives,2,Medium
+2024-10-04,Benue,Road 47,13:00,Forest Path,Kidnapping,5,11,Shotgun,0,High
+2024-12-20,Zamfara,Town 41,04:00,Urban Road,Village Raid,1,1,Shotgun,9,Medium
+2024-02-05,Zamfara,Village 16,20:00,Rural Road,Kidnapping,1,13,Shotgun,3,High
+2024-12-02,Borno,Checkpoint 30,17:00,Urban Road,Village Raid,0,7,AK-47,0,Medium
+2024-06-11,Benue,Town 22,23:00,Rural Road,Village Raid,0,1,Pistols,5,Medium
+2024-11-07,Plateau,Road 33,04:00,Forest Path,Kidnapping,5,3,Explosives,6,High
+2024-02-23,Ondo,Road 11,06:00,Urban Road,Highway Robbery,1,11,None,5,High
+2024-09-06,Kwara,Town 22,08:00,Rural Road,Kidnapping,3,15,Shotgun,1,High
+2024-06-12,Delta,Village 38,01:00,Highway,Bandit Attack,1,14,None,5,High
+2024-01-13,Benue,Checkpoint 39,22:00,Highway,Kidnapping,5,4,AK-47,8,High
+2024-07-01,Kwara,Town 7,21:00,Rural Road,Highway Robbery,0,10,Pistols,2,Medium
+2024-09-15,Kogi,Checkpoint 5,09:00,Urban Road,Bandit Attack,4,12,None,8,High
+2024-07-03,Taraba,Checkpoint 26,09:00,Rural Road,Bandit Attack,4,15,None,3,High
+2024-11-09,Kwara,Road 48,15:00,Rural Road,Highway Robbery,3,2,Explosives,2,Medium
+2024-06-04,Kwara,Road 40,14:00,Highway,Highway Robbery,1,1,Shotgun,4,Medium
+2024-08-04,Kogi,Town 20,11:00,Rural Road,Village Raid,3,10,Pistols,0,High
+2024-01-05,Kwara,Village 15,14:00,Forest Path,Bandit Attack,0,0,AK-47,3,Low
+2024-05-24,Benue,Road 11,00:00,Rural Road,Highway Robbery,3,10,Shotgun,0,High
+2024-03-26,Katsina,Town 30,13:00,Highway,Village Raid,2,7,AK-47,3,Medium
+2024-04-11,Ondo,Village 37,03:00,Forest Path,Village Raid,2,11,AK-47,4,High
+2024-06-13,Abuja,Checkpoint 50,00:00,Urban Road,Highway Robbery,4,4,Shotgun,1,Medium
+2024-03-14,Kaduna,Checkpoint 45,06:00,Rural Road,Bandit Attack,5,6,Explosives,2,High
+2024-05-16,Kogi,Town 47,13:00,Urban Road,Kidnapping,2,3,Pistols,3,Medium
+2024-05-08,Katsina,Checkpoint 38,02:00,Rural Road,Kidnapping,3,12,Shotgun,3,High
+2024-09-05,Taraba,Road 43,10:00,Rural Road,Kidnapping,1,8,Explosives,4,High
+2024-11-20,Plateau,Checkpoint 7,21:00,Rural Road,Kidnapping,0,11,Shotgun,5,High
+2024-11-25,Taraba,Road 44,06:00,Rural Road,Bandit Attack,1,4,AK-47,9,High
+2024-12-04,Kogi,Road 23,15:00,Forest Path,Bandit Attack,4,9,Explosives,1,High
+2024-12-05,Katsina,Village 30,04:00,Highway,Village Raid,4,1,AK-47,6,Medium
+2024-10-18,Kwara,Checkpoint 19,03:00,Urban Road,Kidnapping,0,8,Shotgun,4,Medium
+2024-02-19,Kwara,Checkpoint 15,22:00,Highway,Highway Robbery,0,10,None,5,High
+2024-06-22,Taraba,Checkpoint 6,13:00,Rural Road,Highway Robbery,3,4,None,8,High
+2024-07-21,Edo,Checkpoint 6,07:00,Forest Path,Village Raid,0,11,AK-47,2,High
+2024-04-09,Plateau,Checkpoint 24,17:00,Urban Road,Kidnapping,2,1,Explosives,1,Low
+2024-07-22,Kwara,Road 31,07:00,Rural Road,Highway Robbery,3,8,AK-47,7,High
+2024-12-07,Kwara,Road 3,11:00,Urban Road,Village Raid,3,3,None,9,High
+2024-01-09,Delta,Village 9,19:00,Rural Road,Highway Robbery,2,12,Explosives,2,High
+2024-11-18,Zamfara,Town 1,10:00,Rural Road,Highway Robbery,5,0,Explosives,9,High
+2024-07-25,Kaduna,Village 44,10:00,Rural Road,Bandit Attack,5,3,Pistols,4,Medium
+2024-02-28,Plateau,Village 23,02:00,Forest Path,Bandit Attack,0,11,Shotgun,1,Medium
+2024-04-14,Edo,Village 5,14:00,Urban Road,Village Raid,5,3,Shotgun,3,Medium
+2024-08-05,Katsina,Town 50,13:00,Forest Path,Village Raid,2,0,None,0,Low
+2024-05-15,Zamfara,Checkpoint 39,08:00,Forest Path,Bandit Attack,5,7,AK-47,0,Medium
+2024-01-23,Abuja,Village 20,14:00,Highway,Highway Robbery,4,15,AK-47,6,High
+2024-03-18,Benue,Village 15,01:00,Rural Road,Kidnapping,3,8,Explosives,8,High
+2024-07-09,Borno,Village 29,17:00,Highway,Kidnapping,5,14,None,4,High
+2024-06-20,Sokoto,Town 45,14:00,Forest Path,Kidnapping,5,14,AK-47,1,High
+2024-03-10,Zamfara,Town 29,12:00,Rural Road,Highway Robbery,3,10,Explosives,1,High
+2024-11-02,Ondo,Checkpoint 21,02:00,Rural Road,Village Raid,2,8,None,1,Medium
+2024-07-02,Kogi,Village 49,23:00,Urban Road,Village Raid,5,5,Explosives,8,High
+2024-04-16,Taraba,Road 15,20:00,Highway,Bandit Attack,4,8,Explosives,9,High
+2024-08-14,Delta,Checkpoint 38,11:00,Forest Path,Kidnapping,1,2,Explosives,1,Low
+2024-03-27,Abuja,Checkpoint 49,04:00,Urban Road,Kidnapping,5,5,Pistols,2,Medium
+2024-11-23,Plateau,Village 4,18:00,Rural Road,Kidnapping,5,13,AK-47,2,High
+2024-08-08,Benue,Village 31,07:00,Rural Road,Bandit Attack,4,3,Explosives,9,High
+2024-02-08,Kogi,Checkpoint 15,07:00,Urban Road,Highway Robbery,5,12,Pistols,9,High
+2024-10-15,Zamfara,Village 26,14:00,Rural Road,Highway Robbery,0,7,Pistols,4,Medium
+2024-08-11,Kwara,Road 39,14:00,Rural Road,Village Raid,1,0,AK-47,1,Low
+2024-03-15,Kwara,Town 18,05:00,Highway,Bandit Attack,3,13,Pistols,0,High
+2024-09-05,Ondo,Village 3,08:00,Highway,Highway Robbery,2,12,None,2,High
+2024-02-25,Borno,Checkpoint 50,16:00,Urban Road,Highway Robbery,2,7,AK-47,1,Medium
+2024-06-05,Kogi,Checkpoint 20,05:00,Forest Path,Bandit Attack,4,15,Explosives,10,High
+2024-03-19,Kogi,Village 31,16:00,Rural Road,Village Raid,0,2,Shotgun,1,Low
+2024-06-13,Oyo,Road 44,06:00,Forest Path,Highway Robbery,2,12,Shotgun,9,High
+2024-01-26,Sokoto,Town 46,00:00,Urban Road,Highway Robbery,2,13,None,7,High
+2024-02-02,Delta,Town 17,06:00,Highway,Highway Robbery,4,4,Pistols,4,Medium
+2024-09-18,Oyo,Village 47,06:00,Forest Path,Village Raid,5,12,Shotgun,8,High
+2024-12-15,Kaduna,Village 2,01:00,Rural Road,Kidnapping,4,5,AK-47,4,High
+2024-01-06,Katsina,Road 37,05:00,Rural Road,Kidnapping,4,13,None,9,High
+2024-07-08,Kwara,Town 24,23:00,Forest Path,Highway Robbery,1,15,Pistols,10,High
+2024-06-12,Ondo,Road 4,20:00,Highway,Bandit Attack,3,7,None,0,Medium
+2024-01-17,Kogi,Checkpoint 4,08:00,Rural Road,Village Raid,3,12,AK-47,8,High
+2024-03-05,Kwara,Road 1,23:00,Urban Road,Highway Robbery,0,12,Pistols,7,High
+2024-05-12,Katsina,Checkpoint 16,10:00,Rural Road,Village Raid,0,0,Explosives,6,Medium
+2024-09-23,Borno,Town 10,15:00,Forest Path,Kidnapping,3,1,Explosives,9,High
+2024-05-24,Borno,Checkpoint 8,09:00,Urban Road,Village Raid,1,14,Shotgun,10,High
+2024-01-04,Borno,Checkpoint 16,08:00,Rural Road,Bandit Attack,3,1,Explosives,7,Medium
+2024-10-26,Katsina,Village 22,05:00,Urban Road,Highway Robbery,4,1,AK-47,3,Medium
+2024-06-02,Katsina,Checkpoint 38,18:00,Highway,Highway Robbery,4,7,Explosives,10,High
+2024-11-16,Zamfara,Road 10,15:00,Forest Path,Kidnapping,4,10,Explosives,6,High
+2024-07-17,Sokoto,Town 11,14:00,Forest Path,Highway Robbery,0,13,Shotgun,1,High
+2024-03-17,Sokoto,Road 15,16:00,Rural Road,Highway Robbery,5,10,Shotgun,3,High
+2024-09-05,Niger,Checkpoint 8,08:00,Forest Path,Kidnapping,4,0,Pistols,0,Low
+2024-09-06,Katsina,Checkpoint 34,22:00,Forest Path,Kidnapping,3,11,Pistols,10,High
+2024-01-08,Abuja,Road 47,11:00,Highway,Kidnapping,2,5,AK-47,5,Medium
+2024-01-28,Ondo,Checkpoint 40,04:00,Forest Path,Bandit Attack,0,6,None,3,Medium
+2024-09-16,Niger,Road 45,21:00,Rural Road,Kidnapping,0,14,AK-47,7,High
+2024-04-23,Kaduna,Town 39,14:00,Rural Road,Bandit Attack,5,11,Explosives,8,High
+2024-02-28,Delta,Checkpoint 49,13:00,Urban Road,Bandit Attack,4,5,Shotgun,10,High
+2024-11-09,Plateau,Checkpoint 19,17:00,Forest Path,Kidnapping,3,10,Shotgun,0,High
+2024-12-12,Zamfara,Checkpoint 47,18:00,Highway,Village Raid,4,9,None,9,High
+2024-11-24,Niger,Checkpoint 31,13:00,Highway,Bandit Attack,5,2,Pistols,8,High
+2024-09-12,Oyo,Town 10,13:00,Urban Road,Highway Robbery,3,10,None,2,High
+2024-04-02,Zamfara,Town 11,02:00,Rural Road,Bandit Attack,5,3,Explosives,3,Medium
+2024-09-10,Katsina,Checkpoint 36,05:00,Forest Path,Village Raid,5,9,Pistols,7,High
+2024-08-15,Taraba,Village 18,00:00,Rural Road,Highway Robbery,4,10,None,10,High
+2024-08-28,Sokoto,Town 45,23:00,Highway,Village Raid,5,0,Pistols,5,Medium
+2024-12-16,Kogi,Town 3,14:00,Highway,Village Raid,2,8,Explosives,0,Medium
+2024-03-17,Kwara,Checkpoint 12,05:00,Highway,Highway Robbery,2,2,None,8,Medium
+2024-05-13,Niger,Town 37,05:00,Highway,Village Raid,5,13,Explosives,8,High
+2024-06-26,Plateau,Town 47,17:00,Forest Path,Village Raid,0,12,Pistols,7,High
+2024-06-27,Niger,Town 7,22:00,Highway,Village Raid,5,10,AK-47,5,High
+2024-09-10,Ondo,Village 50,17:00,Rural Road,Village Raid,5,14,AK-47,4,High
+2024-04-15,Kaduna,Road 46,16:00,Urban Road,Bandit Attack,3,13,None,10,High
+2024-12-23,Delta,Town 47,04:00,Urban Road,Highway Robbery,2,5,AK-47,9,High
+2024-10-21,Ondo,Village 44,14:00,Forest Path,Kidnapping,3,13,Explosives,3,High
+2024-09-14,Zamfara,Road 20,19:00,Highway,Bandit Attack,2,14,Shotgun,1,High
+2024-01-18,Sokoto,Town 22,08:00,Rural Road,Village Raid,2,1,Pistols,5,Medium
+2024-09-13,Plateau,Checkpoint 37,19:00,Urban Road,Highway Robbery,4,8,Pistols,3,High
+2024-03-14,Sokoto,Road 50,19:00,Forest Path,Highway Robbery,1,2,None,7,Medium
+2024-08-11,Ondo,Town 5,16:00,Forest Path,Highway Robbery,0,10,Shotgun,5,High
+2024-03-10,Kwara,Village 38,01:00,Urban Road,Highway Robbery,1,7,None,3,Medium
+2024-01-20,Edo,Road 36,23:00,Urban Road,Kidnapping,0,5,AK-47,1,Medium
+2024-10-14,Edo,Road 11,06:00,Forest Path,Highway Robbery,0,9,AK-47,5,High
+2024-08-27,Plateau,Village 24,21:00,Highway,Village Raid,2,12,AK-47,2,High
+2024-01-27,Edo,Village 30,19:00,Highway,Kidnapping,4,12,AK-47,0,High
+2024-03-19,Kwara,Checkpoint 7,13:00,Forest Path,Bandit Attack,2,12,None,8,High
+2024-03-03,Oyo,Road 3,11:00,Forest Path,Highway Robbery,2,2,AK-47,3,Medium
+2024-01-05,Kogi,Road 25,23:00,Urban Road,Bandit Attack,1,8,Pistols,10,High
+2024-08-24,Borno,Checkpoint 44,14:00,Urban Road,Bandit Attack,0,3,Pistols,8,Medium
+2024-03-16,Plateau,Town 2,19:00,Urban Road,Village Raid,2,3,Shotgun,9,High
+2024-03-26,Abuja,Checkpoint 3,10:00,Rural Road,Village Raid,5,3,AK-47,4,Medium
+2024-02-16,Kaduna,Town 33,22:00,Rural Road,Highway Robbery,5,2,AK-47,8,High
+2024-02-17,Katsina,Road 10,04:00,Forest Path,Bandit Attack,0,13,Pistols,10,High
+2024-02-10,Niger,Checkpoint 2,01:00,Forest Path,Kidnapping,1,3,None,2,Medium
+2024-10-16,Borno,Village 41,06:00,Forest Path,Bandit Attack,5,8,None,6,High
+2024-11-03,Ondo,Checkpoint 1,01:00,Rural Road,Village Raid,5,0,Explosives,1,Medium
+2024-01-01,Kaduna,Town 5,23:00,Rural Road,Highway Robbery,0,1,Pistols,5,Medium
+2024-02-06,Benue,Village 21,08:00,Highway,Bandit Attack,0,9,AK-47,10,High
+2024-06-11,Sokoto,Town 45,13:00,Highway,Highway Robbery,2,0,AK-47,9,Medium
+2024-09-02,Oyo,Village 21,11:00,Rural Road,Highway Robbery,1,8,Explosives,3,Medium
+2024-08-04,Plateau,Checkpoint 46,10:00,Rural Road,Highway Robbery,0,3,None,6,Medium
+2024-10-08,Oyo,Checkpoint 12,07:00,Forest Path,Kidnapping,4,7,Shotgun,6,High
+2024-08-04,Niger,Town 47,14:00,Urban Road,Village Raid,5,15,None,0,High
+2024-09-19,Plateau,Road 34,22:00,Rural Road,Highway Robbery,0,0,Pistols,9,Medium
+2024-11-24,Oyo,Town 36,17:00,Urban Road,Village Raid,1,3,Explosives,10,High
+2024-01-25,Katsina,Road 12,23:00,Forest Path,Village Raid,2,9,AK-47,8,High
+2024-12-14,Kaduna,Checkpoint 18,23:00,Urban Road,Highway Robbery,1,8,Explosives,1,Medium
+2024-02-08,Zamfara,Village 10,23:00,Highway,Village Raid,5,3,Explosives,8,High
+2024-11-14,Sokoto,Town 4,14:00,Rural Road,Kidnapping,1,9,None,6,High
+2024-11-27,Zamfara,Checkpoint 45,20:00,Forest Path,Bandit Attack,4,0,Explosives,6,Medium
+2024-02-25,Benue,Town 30,12:00,Rural Road,Highway Robbery,4,13,None,4,High
+2024-02-19,Edo,Village 47,20:00,Urban Road,Highway Robbery,2,9,Pistols,8,High
+2024-08-20,Sokoto,Village 10,19:00,Rural Road,Village Raid,4,7,AK-47,6,High
+2024-11-18,Kogi,Village 13,00:00,Forest Path,Village Raid,0,15,Pistols,7,High
+2024-06-17,Zamfara,Checkpoint 50,01:00,Forest Path,Highway Robbery,5,5,Pistols,1,Medium
+2024-11-12,Abuja,Road 46,10:00,Forest Path,Kidnapping,2,6,AK-47,1,Medium
