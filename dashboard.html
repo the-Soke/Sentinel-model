@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sentinel AI — Dashboard</title>
+
+  <!-- Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+  <!-- ONNX Runtime -->
+  <script src="https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/ort.min.js"></script>
+
+  <style>
+    :root {
+      --bg-main: #020617;
+      --bg-panel: #111827;
+      --bg-card: #1f2933;
+      --border: #374151;
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --accent: #6366f1;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, sans-serif;
+    }
+
+    body {
+      background: var(--bg-main);
+      color: var(--text-main);
+    }
+
+    header {
+      padding: 1.5rem;
+      background: var(--bg-panel);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    nav a {
+      margin-left: 1rem;
+      text-decoration: none;
+      color: var(--text-main);
+    }
+
+    nav a:hover {
+      color: var(--accent);
+    }
+
+    main {
+      padding: 1.5rem;
+      display: grid;
+      grid-template-columns: 3fr 2fr;
+      gap: 1.5rem;
+    }
+
+    .map-container {
+      background: var(--bg-card);
+      border-radius: 0.75rem;
+      overflow: hidden;
+    }
+
+    #map {
+      height: 600px;
+      width: 100%;
+    }
+
+    .analysis-panel {
+      display: grid;
+      grid-template-rows: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 0.75rem;
+      padding: 1rem;
+    }
+
+    .card h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .card p,
+    .card ul {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    footer {
+      padding: 1.5rem;
+      text-align: center;
+      background: var(--bg-panel);
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 900px) {
+      main {
+        grid-template-columns: 1fr;
+      }
+      .analysis-panel {
+        grid-template-rows: auto;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>Sentinel AI</h1>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="risk-checker.html">Risk Checker</a>
+    <a href="panic.html">Panic Button</a>
+  </nav>
+</header>
+
+<main>
+
+  <!-- MAP -->
+  <div class="map-container">
+    <div id="map"></div>
+  </div>
+
+  <!-- ANALYSIS -->
+  <div class="analysis-panel">
+
+    <!-- MACRO -->
+    <div class="card">
+      <h3>Regional Risk Assessment (Macro)</h3>
+      <p><strong>State:</strong> <span id="macro-state">—</span></p>
+      <p><strong>Risk Level:</strong> <span id="macro-risk">Awaiting model output</span></p>
+      <p><strong>Trend:</strong> <span id="macro-trend">—</span></p>
+      <p><strong>Confidence:</strong> <span id="macro-confidence">State-level</span></p>
+    </div>
+
+    <!-- MICRO -->
+    <div class="card">
+      <h3>Local Signals (Micro)</h3>
+      <p><strong>Nearby Reports:</strong> <span id="micro-reports">No data</span></p>
+      <p><strong>Signal Density:</strong> <span id="micro-density">Unknown</span></p>
+      <p><strong>Advisory:</strong> <span id="micro-advisory">Insufficient local data</span></p>
+      <p><strong>Confidence:</strong> <span id="micro-confidence">Low</span></p>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  © 2025 Project Sentinel — Macro & Micro Intelligence Dashboard
+</footer>
+
+<script>
+  /* ================================
+     MAP SETUP
+  ================================= */
+  const map = L.map("map");
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: "&copy; OpenStreetMap contributors"
+  }).addTo(map);
+
+  map.setView([9.08, 7.49], 8);
+
+  let marker = null;
+
+  /* ================================
+     MODEL LOADING (MACRO)
+  ================================= */
+  let macroSession = null;
+
+  async function loadMacroModel() {
+    macroSession = await ort.InferenceSession.create(
+      "./sentinel_model.onnx",
+      { executionProviders: ["wasm"] }
+    );
+  }
+
+  loadMacroModel();
+
+  /* ================================
+     MAP INTERACTION
+  ================================= */
+  map.on("click", e => {
+    const { lat, lng } = e.latlng;
+
+    if (marker) map.removeLayer(marker);
+    marker = L.marker([lat, lng]).addTo(map);
+
+    runMacroInference(lat, lng);
+    runMicroLookup(lat, lng);
+  });
+
+  /* ================================
+     MACRO PIPELINE
+  ================================= */
+  async function runMacroInference(lat, lng) {
+    if (!macroSession) return;
+
+    // Placeholder: lat/lng → state_id mapping happens here
+    const inputTensor = new ort.Tensor(
+      "float32",
+      new Float32Array([lat, lng]),
+      [1, 2]
+    );
+
+    const output = await macroSession.run({ input: inputTensor });
+
+    document.getElementById("macro-state").innerText = "Resolved State";
+    document.getElementById("macro-risk").innerText = "Model response received";
+    document.getElementById("macro-trend").innerText = "Pending interpretation";
+  }
+
+  /* ================================
+     MICRO PIPELINE (NON-PREDICTIVE)
+  ================================= */
+  function runMicroLookup(lat, lng) {
+    /*
+      This is NOT a prediction model.
+      It is a signal aggregation layer.
+
+      Examples:
+      - Incident count
+      - Report recency
+      - Data availability
+    */
+
+    document.getElementById("micro-reports").innerText = "No recent reports";
+    document.getElementById("micro-density").innerText = "Sparse";
+    document.getElementById("micro-advisory").innerText =
+      "No strong local signals detected";
+  }
+</script>
+
+</body>
+</html>
