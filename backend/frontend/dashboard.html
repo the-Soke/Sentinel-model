@@ -123,40 +123,45 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
+    // 1. Initialize Map centered on Nigeria
+    const map = L.map("map").setView([9.08, 7.4], 6);
 
-  const API_BASE = "/api";
+    // 2. Use CartoDB Dark Matter tiles (Looks much better for your UI)
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; OpenStreetMap &copy; CARTO',
+        subdomains: 'abcd',
+        maxZoom: 20
+    }).addTo(map);
 
-  const map = L.map("map").setView([9.0765, 7.3986], 6);
+    // 3. Force map to recognize its container size
+    setTimeout(() => { map.invalidateSize(); }, 200);
 
-  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    maxZoom: 19,
-    attribution: "© OpenStreetMap contributors"
-  }).addTo(map);
+    let marker;
 
-  let marker;
+    async function evaluateRisk(lat, lng) {
+        try {
+            const res = await fetch(`/api/predict`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ latitude: lat, longitude: lng })
+            });
+            const data = await res.json();
 
-  async function evaluateRisk(lat, lng) {
-    const res = await fetch(`${API_BASE}/predict`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ latitude: lat, longitude: lng })
+            document.getElementById("macro-risk").innerText = data.risk || "Unknown";
+            document.getElementById("macro-confidence").innerText = (data.confidence || 0) + "%";
+            document.getElementById("micro-reports").innerText = data.incidentDensity || 0;
+            document.getElementById("micro-density").innerText = data.incidentDensity > 0 ? "⚠️ ACTIVE" : "✅ CLEAR";
+        } catch (err) {
+            console.error("Fetch error:", err);
+        }
+    }
+
+    map.on("click", e => {
+        const { lat, lng } = e.latlng;
+        if (marker) map.removeLayer(marker);
+        marker = L.marker([lat, lng]).addTo(map);
+        evaluateRisk(lat, lng);
     });
-
-    const data = await res.json();
-
-    document.getElementById("macro-risk").innerText = data.risk;
-    document.getElementById("macro-confidence").innerText = data.confidence + "%";
-  }
-
-  map.on("click", e => {
-    const { lat, lng } = e.latlng;
-
-    if (marker) map.removeLayer(marker);
-    marker = L.marker([lat, lng]).addTo(map);
-
-    evaluateRisk(lat, lng);
-  });
-
 });
 </script>
 

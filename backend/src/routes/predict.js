@@ -110,43 +110,102 @@
 
 // export default router;
 
+// import express from "express";
+// import { buildFeatureVector } from "../utils/featureBuilder.js";
+// import { predictRisk } from "../services/onnxService.js";
+// import { geocodeLocation } from "../services/geocodeService.js";
+// import { sendWhatsApp } from "../services/twilioService.js";
+
+// const router = express.Router();
+
+// router.post("/", async (req, res) => {
+//   try {
+//     const input = req.body;
+
+//     const geo = await geocodeLocation(input.location);
+//     const features = buildFeatureVector(input);
+//     const prediction = await predictRisk(features);
+
+//     if (prediction.risk !== "Low" && input.phone) {
+//       await sendWhatsApp(
+//         input.phone,
+//         `🚨 SentinelAI Alert
+
+// Risk Level: ${prediction.risk}
+// Confidence: ${prediction.confidence}%
+
+// Location: ${geo?.display ?? "Unknown"}
+
+// Stay alert and avoid high-risk areas.`
+//       );
+//     }
+
+//     res.json({
+//       ...prediction,
+//       location: geo
+//     });
+//   } catch (e) {
+//     console.error(e);
+//     res.status(500).json({ error: "Prediction failed" });
+//   }
+// });
+
+// export default router;
+
 import express from "express";
-import { buildFeatureVector } from "../utils/featureBuilder.js";
 import { predictRisk } from "../services/onnxService.js";
-import { geocodeLocation } from "../services/geocodeService.js";
-import { sendWhatsApp } from "../services/twilioService.js";
+import { getNearbyIncidents } from "../services/incidentService.js";
 
 const router = express.Router();
 
 router.post("/", async (req, res) => {
   try {
-    const input = req.body;
+    const { latitude, longitude } = req.body;
 
-    const geo = await geocodeLocation(input.location);
-    const features = buildFeatureVector(input);
-    const prediction = await predictRisk(features);
-
-    if (prediction.risk !== "Low" && input.phone) {
-      await sendWhatsApp(
-        input.phone,
-        `🚨 SentinelAI Alert
-
-Risk Level: ${prediction.risk}
-Confidence: ${prediction.confidence}%
-
-Location: ${geo?.display ?? "Unknown"}
-
-Stay alert and avoid high-risk areas.`
-      );
+    if (!latitude || !longitude) {
+      return res.status(400).json({ error: "Missing latitude or longitude" });
     }
 
+    console.log(`🎯 Predicting risk for: ${latitude}, ${longitude}`);
+
+    // Get real incident density from your local data
+    const nearby = getNearbyIncidents(latitude, longitude, 5);
+    const incidentCount = nearby.length;
+
+    const now = new Date();
+    const dayOfYear = Math.floor((now - new Date(now.getFullYear(), 0, 0)) / 86400000);
+    const month = now.getMonth() + 1;
+    const week = Math.ceil(dayOfYear / 7);
+    const hour = now.getHours();
+
+    // The 10 features the model expects
+    const features = [
+      0,             // State
+      0,             // Location
+      0,             // WeaponsUsed
+      0,             // Casualties
+      0,             // Kidnapped
+      incidentCount, // PastIncidentsInArea
+      dayOfYear,
+      month,
+      week,
+      hour
+    ];
+
+    const result = await predictRisk(features);
+
     res.json({
-      ...prediction,
-      location: geo
+      risk: result.risk,
+      confidence: result.confidence,
+      location: { lat: latitude, lng: longitude }
     });
-  } catch (e) {
-    console.error(e);
-    res.status(500).json({ error: "Prediction failed" });
+
+  } catch (error) {
+    console.error("❌ Prediction error:", error);
+    res.status(500).json({
+      error: "Risk prediction failed",
+      message: error.message
+    });
   }
 });
 

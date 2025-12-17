@@ -37,54 +37,106 @@
 
 // export default router;
 
+// import express from "express";
+// import { recordIncident } from "../services/incidentService.js";
+// import { broadcastPanic } from "../services/broadcastService.js";
+
+// const router = express.Router();
+
+// router.post("/", async (req, res) => {
+//   const { phone, latitude, longitude } = req.body;
+
+//   // 🔐 Basic validation
+//   if (!latitude || !longitude) {
+//     return res.status(400).json({
+//       error: "Latitude and longitude required"
+//     });
+//   }
+
+//   try {
+//     // =========================
+//     // 1️⃣ RECORD INCIDENT
+//     // =========================
+//     const incident = await recordIncident({
+//       type: "panic",
+//       latitude,
+//       longitude,
+//       phone: phone || null
+//     });
+
+//     // =========================
+//     // 2️⃣ BROADCAST ALERT
+//     // =========================
+//     await broadcastPanic({
+//       latitude,
+//       longitude,
+//       phone
+//     });
+
+//     console.log("🚨 Panic incident recorded:", incident.id);
+
+//     res.json({
+//       status: "ok",
+//       message: "🚨 Panic alert processed",
+//       incidentId: incident.id
+//     });
+
+//   } catch (err) {
+//     console.error("❌ Panic route error:", err);
+//     res.status(500).json({
+//       error: "Failed to process panic alert"
+//     });
+//   }
+// });
+
+// export default router;
+
 import express from "express";
 import { recordIncident } from "../services/incidentService.js";
-import { broadcastPanic } from "../services/broadcastService.js";
 
 const router = express.Router();
 
+/**
+ * POST /api/panic
+ * Body: { phone, latitude, longitude }
+ */
 router.post("/", async (req, res) => {
-  const { phone, latitude, longitude } = req.body;
-
-  // 🔐 Basic validation
-  if (!latitude || !longitude) {
-    return res.status(400).json({
-      error: "Latitude and longitude required"
-    });
-  }
-
   try {
-    // =========================
-    // 1️⃣ RECORD INCIDENT
-    // =========================
-    const incident = await recordIncident({
-      type: "panic",
-      latitude,
-      longitude,
-      phone: phone || null
+    const { phone, latitude, longitude } = req.body;
+
+    if (!phone || !latitude || !longitude) {
+      return res.status(400).json({
+        error: "Missing required fields: phone, latitude, longitude"
+      });
+    }
+
+    console.log(`🚨 PANIC ALERT from ${phone} at ${latitude}, ${longitude}`);
+
+    // Record the incident
+    recordIncident({
+      lat: latitude,
+      lng: longitude,
+      reporter: phone,
+      time: Date.now()
     });
 
-    // =========================
-    // 2️⃣ BROADCAST ALERT
-    // =========================
-    await broadcastPanic({
-      latitude,
-      longitude,
-      phone
-    });
-
-    console.log("🚨 Panic incident recorded:", incident.id);
+    // TODO: Send WhatsApp notification to nearby users
+    // TODO: Broadcast to Telegram users in range
 
     res.json({
-      status: "ok",
-      message: "🚨 Panic alert processed",
-      incidentId: incident.id
+      success: true,
+      message: "Panic alert sent! Nearby users have been notified.",
+      location: {
+        lat: latitude,
+        lng: longitude
+      }
     });
 
-  } catch (err) {
-    console.error("❌ Panic route error:", err);
+  } catch (error) {
+    console.error("❌ Panic error:", error);
     res.status(500).json({
-      error: "Failed to process panic alert"
+      error: "Failed to process panic alert",
+      message: error.message
     });
   }
 });
