@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sentinel AI — Risk Checker</title>
+
+  <!-- Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+  
+
+  <style>
+    :root {
+      --bg-main: #020617;
+      --bg-panel: #111827;
+      --bg-card: #1f2933;
+      --border: #374151;
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --accent: #6366f1;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, sans-serif;
+    }
+
+    body {
+      background: var(--bg-main);
+      color: var(--text-main);
+    }
+
+    header {
+      padding: 1.5rem;
+      background: var(--bg-panel);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    nav a {
+      margin-left: 1rem;
+      text-decoration: none;
+      color: var(--text-main);
+    }
+
+    nav a:hover {
+      color: var(--accent);
+    }
+
+    main {
+      padding: 1.5rem;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .map-wrapper {
+      background: var(--bg-card);
+      border-radius: 0.75rem;
+      overflow: hidden;
+    }
+
+    #map {
+      height: 500px;
+      width: 100%;
+    }
+
+    .side-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 0.75rem;
+      padding: 1rem;
+    }
+
+    .card h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .card p,
+    .card ul {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    footer {
+      padding: 1.5rem;
+      text-align: center;
+      background: var(--bg-panel);
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 900px) {
+      main {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const map = L.map("map").setView([9.0765, 7.3986], 6);
+
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom: 19,
+    attribution: "© OpenStreetMap contributors"
+  }).addTo(map);
+
+  let marker;
+
+  async function evaluateRisk(lat, lng) {
+    const res = await fetch("/api/predict", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ latitude: lat, longitude: lng })
+    });
+
+    const data = await res.json();
+
+    document.getElementById("risk-label").innerText =
+      `${data.risk} (${data.confidence}%)`;
+
+    document.getElementById("risk-message").innerText =
+      data.risk === "High"
+        ? "⚠ High risk area"
+        : data.risk === "Medium"
+        ? "⚠ Stay alert"
+        : "✅ Area looks safe";
+  }
+
+  map.on("click", (e) => {
+    if (marker) map.removeLayer(marker);
+    marker = L.marker(e.latlng).addTo(map);
+    evaluateRisk(e.latlng.lat, e.latlng.lng);
+  });
+
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition((pos) => {
+      const lat = pos.coords.latitude;
+      const lng = pos.coords.longitude;
+      map.setView([lat, lng], 12);
+      marker = L.marker([lat, lng]).addTo(map);
+      evaluateRisk(lat, lng);
+    });
+  }
+});
+</script>
+
+
+
+<body>
+
+<header>
+  <h1>Sentinel AI</h1>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="panic.html">Panic Button</a>
+  </nav>
+</header>
+
+<main>
+
+  <div class="map-wrapper">
+    <div id="map"></div>
+  </div>
+
+  <div class="side-panel">
+
+    <div class="card">
+      <h3>Model Status</h3>
+      <p id="model-status">Initializing...</p>
+    </div>
+
+    <div class="card">
+      <h3>Selected Location Risk</h3>
+      <p id="risk-label">Awaiting model output</p>
+      <p id="risk-message">Click on the map or allow location access.</p>
+    </div>
+
+    <div class="card">
+      <h3>Instructions</h3>
+      <ul>
+        <li>Click anywhere on the map to evaluate risk.</li>
+        <li>Allow location access for automatic evaluation.</li>
+        <li>Predictions depend on live model inference.</li>
+      </ul>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  © 2025 Project Sentinel — AI Risk Checker
+</footer>
+
+
+
+</body>
+</html>

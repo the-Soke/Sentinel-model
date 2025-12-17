@@ -1,0 +1,68 @@
+# ===============================
+# NODE
+# ===============================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ===============================
+# ENVIRONMENT VARIABLES (CRITICAL!)
+# ===============================
+.env
+.env.local
+.env.production
+.env.development
+
+# ===============================
+# DATA FILES
+# ===============================
+data/
+*.json
+!package.json
+!package-lock.json
+
+# ===============================
+# LOGS
+# ===============================
+logs/
+*.log
+
+# ===============================
+# OS FILES
+# ===============================
+.DS_Store
+Thumbs.db
+
+# ===============================
+# IDE
+# ===============================
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ===============================
+# BUILD
+# ===============================
+dist/
+build/
+.cache/
+
+# ===============================
+# SENSITIVE FILES
+# ===============================
+*.pem
+*.key
+*.cert
+
+# Docker environment variables
+.env
+.env.*.local
+
+# Docker compose overrides
+docker-compose.override.yml
+
+# ngrok
+.ngrok
+.ngrok2/
