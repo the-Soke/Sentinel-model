@@ -106,22 +106,45 @@ process.on('uncaughtException', (error) => {
   // Don't exit - let the app continue running
 });
 
-// ⛔ FAIL FAST
-if (!process.env.TELEGRAM_BOT_TOKEN) {
+// ===============================
+// ENVIRONMENT VALIDATION
+// ===============================
+console.log('🔍 Environment Check:');
+console.log(`   NODE_ENV: ${process.env.NODE_ENV || 'development'}`);
+console.log(`   ENABLE_TELEGRAM: ${process.env.ENABLE_TELEGRAM !== 'false' ? 'true' : 'false'}`);
+console.log(`   USE_NGROK: ${process.env.USE_NGROK === 'true' ? 'true' : 'false'}`);
+
+// ⛔ FAIL FAST - Only check required variables
+if (process.env.ENABLE_TELEGRAM !== 'false' && !process.env.TELEGRAM_BOT_TOKEN) {
   console.error("❌ TELEGRAM_BOT_TOKEN missing");
   process.exit(1);
 }
 
-// Only require WEBHOOK_URL in production
-if (process.env.NODE_ENV === 'production' && !process.env.WEBHOOK_URL) {
+// Only require WEBHOOK_URL in production (not in ngrok mode)
+if (process.env.NODE_ENV === 'production' && 
+    process.env.USE_NGROK !== 'true' && 
+    !process.env.WEBHOOK_URL) {
   console.error("❌ WEBHOOK_URL missing in production");
+  process.exit(1);
+}
+
+// Check for ngrok URL if ngrok mode is enabled
+if (process.env.USE_NGROK === 'true' && !process.env.NGROK_URL) {
+  console.error("❌ NGROK_URL missing but USE_NGROK=true");
+  console.error("💡 Run 'ngrok http 3000' and set NGROK_URL in .env");
   process.exit(1);
 }
 
 import predictRouter from "./src/routes/predict.js";
 import panicRouter from "./src/routes/panic.js";
 import whatsappRouter from "./src/routes/whatsapp.js";
-import { setupTelegramWebhook } from "./src/bots/telegramBot.js";
+
+// Only import Telegram bot if enabled
+let setupTelegramWebhook;
+if (process.env.ENABLE_TELEGRAM !== 'false') {
+  const telegramModule = await import("./src/bots/telegramBot.js");
+  setupTelegramWebhook = telegramModule.setupTelegramWebhook;
+}
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -130,9 +153,26 @@ app.use(cors());
 app.use(express.json());
 
 // ===============================
+// HEALTH CHECK ENDPOINT
+// ===============================
+app.get('/health', (req, res) => {
+  res.json({
+    status: 'ok',
+    timestamp: new Date().toISOString(),
+    telegram: process.env.ENABLE_TELEGRAM !== 'false',
+    mode: process.env.USE_NGROK === 'true' ? 'ngrok' : 
+          process.env.NODE_ENV === 'production' ? 'production' : 'polling'
+  });
+});
+
+// ===============================
 // TELEGRAM WEBHOOK
 // ===============================
-setupTelegramWebhook(app);
+if (process.env.ENABLE_TELEGRAM !== 'false' && setupTelegramWebhook) {
+  setupTelegramWebhook(app);
+} else {
+  console.log("⏭️ Telegram bot disabled");
+}
 
 // ===============================
 // ROUTES
@@ -153,6 +193,22 @@ app.get("/", (_, res) => {
   res.sendFile(path.join(frontendPath, "index.html"));
 });
 
+// ===============================
+// 404 HANDLER
+// ===============================
+app.use((req, res) => {
+  res.status(404).json({ error: 'Route not found' });
+});
+
+// ===============================
+// START SERVER
+// ===============================
 app.listen(PORT, () => {
-  console.log(`✅ Sentinel running on http://localhost:${PORT}`);
+  console.log('\n' + '='.repeat(50));
+  console.log(`✅ Sentinel AI Backend Running`);
+  console.log(`🌐 Local: http://localhost:${PORT}`);
+  if (process.env.USE_NGROK === 'true' && process.env.NGROK_URL) {
+    console.log(`🌍 Public: ${process.env.NGROK_URL}`);
+  }
+  console.log('='.repeat(50) + '\n');
 });
