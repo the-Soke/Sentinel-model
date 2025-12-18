@@ -84,6 +84,145 @@
 //     console.log(`🚀 Server running on port ${process.env.PORT}`)
 // );
 
+// import express from "express";
+// import cors from "cors";
+// import path from "path";
+// import { fileURLToPath } from "url";
+// import dotenv from "dotenv";
+
+// dotenv.config();
+
+// // ===============================
+// // GLOBAL ERROR HANDLERS
+// // ===============================
+// process.on('unhandledRejection', (reason, promise) => {
+//   console.error('⚠️ Unhandled Rejection at:', promise);
+//   console.error('⚠️ Reason:', reason);
+//   // Don't exit - let the app continue running
+// });
+
+// process.on('uncaughtException', (error) => {
+//   console.error('⚠️ Uncaught Exception:', error);
+//   // Don't exit - let the app continue running
+// });
+
+// // ===============================
+// // ENVIRONMENT VALIDATION
+// // ===============================
+// console.log('🔍 Environment Check:');
+// console.log(`   NODE_ENV: ${process.env.NODE_ENV || 'development'}`);
+// console.log(`   ENABLE_TELEGRAM: ${process.env.ENABLE_TELEGRAM !== 'false' ? 'true' : 'false'}`);
+// console.log(`   USE_NGROK: ${process.env.USE_NGROK === 'true' ? 'true' : 'false'}`);
+
+// // ⛔ FAIL FAST - Only check required variables
+// if (process.env.ENABLE_TELEGRAM !== 'false' && !process.env.TELEGRAM_BOT_TOKEN) {
+//   console.error("❌ TELEGRAM_BOT_TOKEN missing");
+//   process.exit(1);
+// }
+
+// // Only require WEBHOOK_URL in production (not in ngrok mode)
+// if (process.env.NODE_ENV === 'production' && 
+//     process.env.USE_NGROK !== 'true' && 
+//     !process.env.WEBHOOK_URL) {
+//   console.error("❌ WEBHOOK_URL missing in production");
+//   process.exit(1);
+// }
+
+// // Check for ngrok URL if ngrok mode is enabled
+// if (process.env.USE_NGROK === 'true' && !process.env.NGROK_URL) {
+//   console.error("❌ NGROK_URL missing but USE_NGROK=true");
+//   console.error("💡 Run 'ngrok http 3000' and set NGROK_URL in .env");
+//   process.exit(1);
+// }
+
+// import predictRouter from "./src/routes/predict.js";
+// import panicRouter from "./src/routes/panic.js";
+// import whatsappRouter from "./src/routes/whatsapp.js";
+
+// // Only import Telegram bot if enabled
+// let setupTelegramWebhook;
+// if (process.env.ENABLE_TELEGRAM !== 'false') {
+//   const telegramModule = await import("./src/bots/telegramBot.js");
+//   setupTelegramWebhook = telegramModule.setupTelegramWebhook;
+// }
+
+// const app = express();
+// const PORT = process.env.PORT || 3000;
+
+// app.use(cors());
+// app.use(express.json());
+
+// // ===============================
+// // HEALTH CHECK ENDPOINT
+// // ===============================
+// app.get('/health', (req, res) => {
+//   res.json({
+//     status: 'ok',
+//     timestamp: new Date().toISOString(),
+//     telegram: process.env.ENABLE_TELEGRAM !== 'false',
+//     mode: process.env.USE_NGROK === 'true' ? 'ngrok' : 
+//           process.env.NODE_ENV === 'production' ? 'production' : 'polling'
+//   });
+// });
+
+// // ===============================
+// // TELEGRAM WEBHOOK
+// // ===============================
+// if (process.env.ENABLE_TELEGRAM !== 'false' && setupTelegramWebhook) {
+//   setupTelegramWebhook(app);
+// } else {
+//   console.log("⏭️ Telegram bot disabled");
+// }
+
+// // ===============================
+// // API ROUTES
+// // ===============================
+// app.use("/api/predict", predictRouter);
+// app.use("/api/panic", panicRouter);
+// app.use("/api/whatsapp", whatsappRouter);
+
+// // ===============================
+// // FRONTEND ROUTES
+// // ===============================
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
+// const frontendPath = path.join(__dirname, "frontend");
+
+// // Serve static files
+// app.use(express.static(frontendPath));
+
+// // Main dashboard
+// app.get("/", (_, res) => {
+//   res.sendFile(path.join(frontendPath, "index.html"));
+// });
+
+// // Panic button page
+// app.get("/panic", (_, res) => {
+//   res.sendFile(path.join(frontendPath, "panic.html"));
+// });
+
+// // ===============================
+// // 404 HANDLER
+// // ===============================
+// app.use((req, res) => {
+//   res.status(404).json({ error: 'Route not found' });
+// });
+
+// // ===============================
+// // START SERVER
+// // ===============================
+// app.listen(PORT, () => {
+//   console.log('\n' + '='.repeat(50));
+//   console.log(`✅ Sentinel AI Backend Running`);
+//   console.log(`🌐 Local: http://localhost:${PORT}`);
+//   console.log(`🚨 Panic Button: http://localhost:${PORT}/panic`);
+//   if (process.env.USE_NGROK === 'true' && process.env.NGROK_URL) {
+//     console.log(`🌍 Public: ${process.env.NGROK_URL}`);
+//     console.log(`🚨 Public Panic: ${process.env.NGROK_URL}/panic`);
+//   }
+//   console.log('='.repeat(50) + '\n');
+// });
+
 import express from "express";
 import cors from "cors";
 import path from "path";
@@ -103,6 +242,7 @@ process.on('unhandledRejection', (reason, promise) => {
 
 process.on('uncaughtException', (error) => {
   console.error('⚠️ Uncaught Exception:', error);
+  console.error('Stack:', error.stack);
   // Don't exit - let the app continue running
 });
 
@@ -113,6 +253,7 @@ console.log('🔍 Environment Check:');
 console.log(`   NODE_ENV: ${process.env.NODE_ENV || 'development'}`);
 console.log(`   ENABLE_TELEGRAM: ${process.env.ENABLE_TELEGRAM !== 'false' ? 'true' : 'false'}`);
 console.log(`   USE_NGROK: ${process.env.USE_NGROK === 'true' ? 'true' : 'false'}`);
+console.log(`   WEBHOOK_URL: ${process.env.WEBHOOK_URL || 'not set'}`);
 
 // ⛔ FAIL FAST - Only check required variables
 if (process.env.ENABLE_TELEGRAM !== 'false' && !process.env.TELEGRAM_BOT_TOKEN) {
@@ -135,22 +276,20 @@ if (process.env.USE_NGROK === 'true' && !process.env.NGROK_URL) {
   process.exit(1);
 }
 
-import predictRouter from "./src/routes/predict.js";
-import panicRouter from "./src/routes/panic.js";
-import whatsappRouter from "./src/routes/whatsapp.js";
-
-// Only import Telegram bot if enabled
-let setupTelegramWebhook;
-if (process.env.ENABLE_TELEGRAM !== 'false') {
-  const telegramModule = await import("./src/bots/telegramBot.js");
-  setupTelegramWebhook = telegramModule.setupTelegramWebhook;
-}
-
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// ===============================
+// MIDDLEWARE - ORDER MATTERS!
+// ===============================
 app.use(cors());
 app.use(express.json());
+
+// Add request logging
+app.use((req, res, next) => {
+  console.log(`📥 ${req.method} ${req.path}`);
+  next();
+});
 
 // ===============================
 // HEALTH CHECK ENDPOINT
@@ -161,15 +300,31 @@ app.get('/health', (req, res) => {
     timestamp: new Date().toISOString(),
     telegram: process.env.ENABLE_TELEGRAM !== 'false',
     mode: process.env.USE_NGROK === 'true' ? 'ngrok' : 
-          process.env.NODE_ENV === 'production' ? 'production' : 'polling'
+          process.env.NODE_ENV === 'production' ? 'production' : 'polling',
+    env: {
+      NODE_ENV: process.env.NODE_ENV,
+      WEBHOOK_URL: process.env.WEBHOOK_URL,
+      USE_NGROK: process.env.USE_NGROK
+    }
   });
 });
 
 // ===============================
-// TELEGRAM WEBHOOK
+// TELEGRAM WEBHOOK - MUST BE BEFORE ROUTES
 // ===============================
-if (process.env.ENABLE_TELEGRAM !== 'false' && setupTelegramWebhook) {
-  setupTelegramWebhook(app);
+let setupTelegramWebhook;
+if (process.env.ENABLE_TELEGRAM !== 'false') {
+  try {
+    const telegramModule = await import("./src/bots/telegramBot.js");
+    setupTelegramWebhook = telegramModule.setupTelegramWebhook;
+    
+    // Set up webhook IMMEDIATELY
+    await setupTelegramWebhook(app);
+    console.log('✅ Telegram webhook setup completed');
+  } catch (error) {
+    console.error('❌ Failed to load Telegram bot:', error);
+    console.error('Stack:', error.stack);
+  }
 } else {
   console.log("⏭️ Telegram bot disabled");
 }
@@ -177,6 +332,10 @@ if (process.env.ENABLE_TELEGRAM !== 'false' && setupTelegramWebhook) {
 // ===============================
 // API ROUTES
 // ===============================
+import predictRouter from "./src/routes/predict.js";
+import panicRouter from "./src/routes/panic.js";
+import whatsappRouter from "./src/routes/whatsapp.js";
+
 app.use("/api/predict", predictRouter);
 app.use("/api/panic", panicRouter);
 app.use("/api/whatsapp", whatsappRouter);
@@ -205,7 +364,20 @@ app.get("/panic", (_, res) => {
 // 404 HANDLER
 // ===============================
 app.use((req, res) => {
-  res.status(404).json({ error: 'Route not found' });
+  console.log(`❌ 404: ${req.method} ${req.path}`);
+  res.status(404).json({ error: 'Route not found', path: req.path });
+});
+
+// ===============================
+// ERROR HANDLER
+// ===============================
+app.use((err, req, res, next) => {
+  console.error('❌ Express Error:', err);
+  console.error('Stack:', err.stack);
+  res.status(500).json({ 
+    error: 'Internal server error',
+    message: err.message 
+  });
 });
 
 // ===============================
@@ -216,9 +388,13 @@ app.listen(PORT, () => {
   console.log(`✅ Sentinel AI Backend Running`);
   console.log(`🌐 Local: http://localhost:${PORT}`);
   console.log(`🚨 Panic Button: http://localhost:${PORT}/panic`);
+  console.log(`💚 Health Check: http://localhost:${PORT}/health`);
   if (process.env.USE_NGROK === 'true' && process.env.NGROK_URL) {
     console.log(`🌍 Public: ${process.env.NGROK_URL}`);
     console.log(`🚨 Public Panic: ${process.env.NGROK_URL}/panic`);
+  } else if (process.env.WEBHOOK_URL) {
+    console.log(`🌍 Public: ${process.env.WEBHOOK_URL}`);
+    console.log(`🚨 Public Panic: ${process.env.WEBHOOK_URL}/panic`);
   }
   console.log('='.repeat(50) + '\n');
 });
