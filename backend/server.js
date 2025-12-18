@@ -175,22 +175,30 @@ if (process.env.ENABLE_TELEGRAM !== 'false' && setupTelegramWebhook) {
 }
 
 // ===============================
-// ROUTES
+// API ROUTES
 // ===============================
 app.use("/api/predict", predictRouter);
 app.use("/api/panic", panicRouter);
 app.use("/api/whatsapp", whatsappRouter);
 
 // ===============================
-// FRONTEND
+// FRONTEND ROUTES
 // ===============================
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const frontendPath = path.join(__dirname, "frontend");
 
+// Serve static files
 app.use(express.static(frontendPath));
+
+// Main dashboard
 app.get("/", (_, res) => {
   res.sendFile(path.join(frontendPath, "index.html"));
+});
+
+// Panic button page
+app.get("/panic", (_, res) => {
+  res.sendFile(path.join(frontendPath, "panic.html"));
 });
 
 // ===============================
@@ -207,8 +215,10 @@ app.listen(PORT, () => {
   console.log('\n' + '='.repeat(50));
   console.log(`✅ Sentinel AI Backend Running`);
   console.log(`🌐 Local: http://localhost:${PORT}`);
+  console.log(`🚨 Panic Button: http://localhost:${PORT}/panic`);
   if (process.env.USE_NGROK === 'true' && process.env.NGROK_URL) {
     console.log(`🌍 Public: ${process.env.NGROK_URL}`);
+    console.log(`🚨 Public Panic: ${process.env.NGROK_URL}/panic`);
   }
   console.log('='.repeat(50) + '\n');
 });

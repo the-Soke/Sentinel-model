@@ -2,59 +2,314 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<title>Sentinel AI — Panic</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sentinel AI — Emergency Panic Button</title>
 
 <style>
-body {
-  background:#020617;
-  color:#f3f4f6;
-  font-family:system-ui;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  height:100vh;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-button {
-  padding:2rem 3rem;
-  font-size:1.5rem;
-  background:#dc2626;
-  color:white;
-  border:none;
-  border-radius:1rem;
-  cursor:pointer;
+
+body {
+  background: linear-gradient(135deg, #020617 0%, #1e1b4b 100%);
+  color: #f3f4f6;
+  font-family: system-ui, -apple-system, sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 1rem;
+}
+
+.container {
+  text-align: center;
+  max-width: 500px;
+  width: 100%;
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #fbbf24;
+}
+
+.info {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.info p {
+  margin-bottom: 0.5rem;
+  color: #e5e7eb;
+}
+
+.location-status {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+
+.location-status.pending {
+  background: #fbbf24;
+  color: #000;
+}
+
+.location-status.success {
+  background: #10b981;
+  color: #fff;
+}
+
+.location-status.error {
+  background: #ef4444;
+  color: #fff;
+}
+
+#panicBtn {
+  padding: 2rem 3rem;
+  font-size: 1.8rem;
+  font-weight: bold;
+  background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+  color: white;
+  border: 3px solid #fca5a5;
+  border-radius: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 40px rgba(220, 38, 38, 0.4);
+  width: 100%;
+  max-width: 300px;
+}
+
+#panicBtn:hover:not(:disabled) {
+  transform: scale(1.05);
+  box-shadow: 0 15px 60px rgba(220, 38, 38, 0.6);
+}
+
+#panicBtn:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+#panicBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+#panicBtn.sending {
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+  border-color: #fde68a;
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+#panicBtn.success {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  border-color: #6ee7b7;
+}
+
+.response {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  font-size: 1rem;
+  display: none;
+}
+
+.response.show {
+  display: block;
+}
+
+.response.success {
+  background: rgba(16, 185, 129, 0.2);
+  border: 1px solid #10b981;
+  color: #6ee7b7;
+}
+
+.response.error {
+  background: rgba(239, 68, 68, 0.2);
+  border: 1px solid #ef4444;
+  color: #fca5a5;
+}
+
+.stats {
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  color: #9ca3af;
+}
+
+.coords {
+  font-family: monospace;
+  font-size: 0.85rem;
+  color: #60a5fa;
+  margin-top: 0.5rem;
 }
 </style>
 </head>
 
 <body>
 
-<button id="panic">🚨 PANIC</button>
+<div class="container">
+  <h1>🛡️ Sentinel AI</h1>
+  
+  <div class="info">
+    <p><strong>Emergency Panic Alert</strong></p>
+    <p style="font-size: 0.9rem;">Press the button to alert nearby Telegram users</p>
+    <div id="locationStatus" class="location-status pending">
+      📍 Getting your location...
+    </div>
+    <div id="coords" class="coords"></div>
+  </div>
+
+  <button id="panicBtn" disabled>
+    🚨 PANIC
+  </button>
+
+  <div id="response" class="response"></div>
+
+  <div class="stats">
+    <p>Alerts are sent to Telegram users within 5km</p>
+    <p>Your location is never shared publicly</p>
+  </div>
+</div>
 
 <script>
-document.getElementById("panic").addEventListener("click", async () => {
+let userLocation = null;
 
-  const phone = prompt("Enter your WhatsApp number (e.g. +2348012345678)");
+// Get user's location on page load
+window.addEventListener('load', () => {
+  const locationStatus = document.getElementById('locationStatus');
+  const coordsDiv = document.getElementById('coords');
+  const panicBtn = document.getElementById('panicBtn');
 
-  if (!phone) return alert("Phone number required");
+  if (!navigator.geolocation) {
+    locationStatus.textContent = '❌ Location not supported';
+    locationStatus.className = 'location-status error';
+    return;
+  }
 
-  const res = await fetch("/api/panic", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      phone,
-      latitude: 9.0765,
-      longitude: 7.3986
-    })
-  });
-
-  const data = await res.json();
-  alert(data.message || data.error);
+  navigator.geolocation.getCurrentPosition(
+    (position) => {
+      userLocation = {
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude
+      };
+      
+      locationStatus.textContent = '✅ Location obtained';
+      locationStatus.className = 'location-status success';
+      
+      coordsDiv.textContent = `${userLocation.latitude.toFixed(6)}, ${userLocation.longitude.toFixed(6)}`;
+      
+      // Enable panic button
+      panicBtn.disabled = false;
+    },
+    (error) => {
+      console.error('Location error:', error);
+      locationStatus.textContent = '❌ Location access denied';
+      locationStatus.className = 'location-status error';
+      
+      // Still enable button with fallback location
+      userLocation = {
+        latitude: 9.0765,
+        longitude: 7.3986
+      };
+      panicBtn.disabled = false;
+      coordsDiv.textContent = 'Using fallback location (Abuja)';
+    },
+    {
+      enableHighAccuracy: true,
+      timeout: 10000,
+      maximumAge: 0
+    }
+  );
 });
+
+// Handle panic button click
+document.getElementById('panicBtn').addEventListener('click', async () => {
+  const panicBtn = document.getElementById('panicBtn');
+  const responseDiv = document.getElementById('response');
+
+  if (!userLocation) {
+    showResponse('❌ Location not available. Please refresh and allow location access.', 'error');
+    return;
+  }
+
+  // Confirm action
+  if (!confirm('⚠️ Send emergency alert to nearby users?\n\nThis will notify all Telegram users within 5km of your location.')) {
+    return;
+  }
+
+  // Update button state
+  panicBtn.disabled = true;
+  panicBtn.className = 'sending';
+  panicBtn.textContent = '📡 SENDING ALERT...';
+  responseDiv.className = 'response';
+  responseDiv.style.display = 'none';
+
+  try {
+    const res = await fetch('/api/panic', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        latitude: userLocation.latitude,
+        longitude: userLocation.longitude,
+        source: 'web-panic-button'
+      })
+    });
+
+    const data = await res.json();
+
+    if (res.ok && data.success) {
+      // Success
+      panicBtn.className = 'success';
+      panicBtn.textContent = '✅ ALERT SENT';
+      
+      showResponse(
+        `✅ ${data.message}\n\n📊 ${data.notifications.sent} user${data.notifications.sent !== 1 ? 's' : ''} notified`,
+        'success'
+      );
+
+      // Reset button after 5 seconds
+      setTimeout(() => {
+        panicBtn.disabled = false;
+        panicBtn.className = '';
+        panicBtn.textContent = '🚨 PANIC';
+      }, 5000);
+
+    } else {
+      throw new Error(data.error || 'Failed to send alert');
+    }
+
+  } catch (error) {
+    console.error('Panic error:', error);
+    
+    panicBtn.disabled = false;
+    panicBtn.className = '';
+    panicBtn.textContent = '🚨 PANIC';
+    
+    showResponse(
+      `❌ Failed to send alert: ${error.message}\n\nPlease try again or contact emergency services directly.`,
+      'error'
+    );
+  }
+});
+
+function showResponse(message, type) {
+  const responseDiv = document.getElementById('response');
+  responseDiv.textContent = message;
+  responseDiv.className = `response ${type} show`;
+}
 </script>
-
-
-
-
 
 </body>
 </html>
